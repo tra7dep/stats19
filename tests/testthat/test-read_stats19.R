@@ -20,21 +20,47 @@ test_that("read_accidents works", {
 })
 
 test_that("read_vehicles works", {
-  skip_download()
+  # skip_download()
   # download real data
   veh_2016 = file_names$dftRoadSafetyData_Vehicles_2016.zip
   dl_stats19(file_name = veh_2016)
-  path = file.path(
-    tempdir(), sub(".zip", "", veh_2016))
+  path = locate_one_file(
+    type = "vehicles",
+    tempdir(), years = 2016,
+    filename = sub(".zip", ".csv", veh_2016))
   # read it
   read = read_vehicles(
-    data_dir = path,
-    filename = "Veh.csv"
+    years = 2016, # make it unique
+    data_dir = tempdir(),
+    filename = sub(".zip", ".csv", veh_2016)
   )
-  raw_read = read.csv(file.path(path, "Veh.csv"))
+  raw_read = read.csv(path)
   expect_false(identical(
     class(read$Accident_Index),
     class(raw_read$Accident_Index)
     ))
+  expect_error(read_vehicles("junk"))
+})
+
+test_that("read_casualties works", {
+  # skip_download()
+  # download real data
+  cas_2016 = file_names$dftRoadSafetyData_Casualties_2016.zip
+  dl_stats19(file_name = cas_2016)
+  path = locate_one_file(
+    type = "Casualties",
+    tempdir(), years = 2016,
+    filename = sub(".zip", ".csv", cas_2016))
+  # read it
+  read = read_casualties(
+    years = 2016, # make it unique
+    data_dir = tempdir(),
+    filename = sub(".zip", ".csv", cas_2016)
+  )
+  raw_read = read.csv(path)
+  expect_false(identical(
+    class(read$Accident_Index),
+    class(raw_read$Accident_Index)
+  ))
   expect_error(read_vehicles("junk"))
 })
