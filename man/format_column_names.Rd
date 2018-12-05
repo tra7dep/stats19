@@ -15,6 +15,7 @@ R by default. Names that are all lower case with no R-unfriendly characters
 such as spaces and `-` are returned.
 }
 \examples{
+format_column_names(names(accidents_2016_sample))
 \dontrun{
 crashes_raw = read_accidents()
 column_names = names(crashes_raw)

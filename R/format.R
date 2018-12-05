@@ -143,7 +143,9 @@ format_vehicles = function(x, factorize = FALSE) {
 #' such as spaces and `-` are returned.
 #' @param column_names Column names to be cleaned
 #' @export
-#' @examples \dontrun{
+#' @examples
+#' format_column_names(names(accidents_2016_sample))
+#' \dontrun{
 #' crashes_raw = read_accidents()
 #' column_names = names(crashes_raw)
 #' column_names
@@ -156,6 +158,9 @@ format_column_names = function(column_names) {
   x = gsub(pattern = "1st", replacement = "first", x = x)
   x = gsub(pattern = "2nd", replacement = "second", x = x)
   x = gsub(pattern = "-", replacement = "_", x = x)
+  x = gsub(pattern = "_\\.", replacement = "_", x = x)
+  x = gsub(pattern = "\\.$", replacement = "", x = x)
+  x = gsub(pattern = "\\.", replacement = "_", x = x)
   x
 }
 #' Load stats19 schema
