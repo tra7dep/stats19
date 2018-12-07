@@ -24,7 +24,7 @@ test_that("read_accidents works", {
 })
 
 test_that("read_vehicles works", {
-  skip_download()
+  # skip_download()
   # download real data
   veh_2016 = file_names$dftRoadSafetyData_Vehicles_2016.zip
   dl_stats19(file_name = veh_2016)
